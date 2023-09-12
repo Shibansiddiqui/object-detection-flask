@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Object Detection with Flask</title>
+</head>
+<body>
+    <h1>Object Detection with Flask</h1>
+    <img src="{{ url_for('video_feed') }}" width="640" height="480">
+    
+    <div class="box">
+        <h1 class="dt">Detection</h1>
+        <div id="camera-container">
+            <video id="camera" autoplay playsinline></video>
+        </div>
+        
+        <button id="start-back-camera">Open Camera</button>
+        
+        <script>
+            const videoElement = document.getElementById('camera');
+            const startBackCameraButton = document.getElementById('start-back-camera');
+            
+            startBackCameraButton.addEventListener('click', async () => {
+                try {
+                    const stream = await navigator.mediaDevices.getUserMedia({ video: { facingMode: "environment" } });
+                    videoElement.srcObject = stream;
+                } catch (error) {
+                    console.error('Error accessing the back camera:', error);
+                }
+            });
+        </script>
+    </div>
+</body>
+</html>
